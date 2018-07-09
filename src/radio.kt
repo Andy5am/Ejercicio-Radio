@@ -1,7 +1,7 @@
 package main
 
 fun main (args: Array<String>) {
-    var radio = Radio(false, 20, "Am", 99.9)
+    var radio = Radio(false, 20, "Fm", 95.0)
     println(radio)
     var opcion = true
     while (opcion != false) {
@@ -40,8 +40,34 @@ fun main (args: Array<String>) {
                     radio.bajarvol()
                     println(radio)
                 } else if (respuesta2 == "5") {
+                    if (radio.emisora== "Am" &&(radio.NumEmisora<=1400.0 )) {
+                        println("Cuanto desea subir la emisora?: ")
+                        var numero2: String = readLine()!!
+                        radio.subirEst(numero2)
+                        println(radio)
+                    } else if (radio.emisora== "Fm" &&(radio.NumEmisora<104.0 )) {
+                        println("Cuanto desea subir la emisora?: ")
+                        var numero2: String = readLine()!!
+                        radio.subirEst(numero2)
+                        println(radio)
+                    } else {
+                        println("No puede subir mas de emisora")
+                    }
 
                 } else if (respuesta2 == "6") {
+                    if (radio.emisora== "Am" &&(radio.NumEmisora>=1000.0 )) {
+                        println("Cuanto desea bajar la emisora?: ")
+                        var numero2: String = readLine()!!
+                        radio.bajarEst(numero2)
+                        println(radio)
+                    } else if (radio.emisora== "Fm" &&(radio.NumEmisora>=87.0 )) {
+                        println("Cuanto desea bajar la emisora?: ")
+                        var numero2: String = readLine()!!
+                        radio.bajarEst(numero2)
+                        println(radio)
+                    } else {
+                        println("No puede bajar mas de emisora")
+                    }
 
                 } else if (respuesta2 == "7") {
                     radio.apagar()
@@ -73,24 +99,54 @@ class Radio(
 
     fun ponerAm() {
         emisora = "Am"
+        NumEmisora = 1200.0
     }
 
     fun ponerFm() {
         emisora = "Fm"
+        NumEmisora = 95.0
     }
     fun subirvol(){
-        volumen+= 1
+        if(volumen<100){
+            volumen+=1
+        }else{
+            println("No puede subir mas volumen")
+        }
     }
     fun bajarvol(){
-        volumen-=1
+        if (volumen>0){
+            volumen-=1
+        }else{
+            println("No puede bajar mas volumen")
+        }
+    }
+    fun subirEst(num:String){
+        NumEmisora+=num.toDouble()
+        if (NumEmisora> 104.0 &&(emisora== "Fm")){
+            NumEmisora-=num.toDouble()
+            println("No puede subir ese numero de emisoras")
+        }else if (NumEmisora> 1400.0&&(emisora=="Am")) {
+            NumEmisora -= num.toDouble()
+            println("No puede subir ese numero de emisoras")
+        }
+    }
+    fun bajarEst(num2: String){
+        NumEmisora-=num2.toDouble()
+        if (NumEmisora< 87.0 &&(emisora == "Fm")) {
+            NumEmisora -= num2.toDouble()
+            println("No puede bajar ese numero de emisoras")
+        } else if (NumEmisora< 1000.0&&(emisora== "Am")) {
+            NumEmisora -= num2.toDouble()
+            println("No puede subir ese numero de emisoras")
+        }
     }
     override fun toString(): String {
         return """
             Radio:
                 Esta encendido: $encendido
-                Esta en: $emisora
-                Sintoniza la emisora: $NumEmisora
-                El volumen es de: $volumen
+                Frecuencia: $emisora
+                Emisora: $NumEmisora
+                Volumen: $volumen
         """.trimIndent()
     }
 }
