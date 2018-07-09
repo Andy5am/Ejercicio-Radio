@@ -3,18 +3,19 @@ package main
 fun main (args: Array<String>) {
     var radio = Radio(false, 20, "Am", 99.9)
     println(radio)
-
-    println("""
+    var opcion = true
+    while (opcion != false) {
+        println("""
        Radio:
        1. Encender
        2. Salir
    """.trimIndent())
-    var opcion = "0"
-    while (opcion != "2") {
         print("Que opcion desea?:")
-        var opcion = readLine()!!
-        if (opcion == "1") {
-            println("""
+        var respuesta = readLine()!!
+        if (respuesta == "1") {
+            var opcion2 = true
+            while (opcion2 != false) {
+                println("""
                 Radio:
                 1. Cambiar a Am
                 2. Cambiar a Fm
@@ -24,27 +25,36 @@ fun main (args: Array<String>) {
                 6. Bajar emisora
                 7. Apagar
             """.trimIndent())
-            var opcion2 = "0"
-            while (opcion2 != "7")
-            println("Que opcion desea?: ")
-            var opcion2 = readLine()!!
-            if (opcion2 == "1") {
-                radio.ponerAm()
-                println(radio)
-            } else if (opcion2 == "2") {
-                radio.ponerFm()
-                println(radio)
-            } else if (opcion2 == "3") {
-                radio.subirvol()
-                println(radio)
-            } else if (opcion2 == "4") {
-                radio.bajarvol()
-                println(radio)
-            } else if (opcion2 == "5") {
+                print("Que opcion desea?: $opcion2 ")
+                var respuesta2 = readLine()!!
+                if (respuesta2 == "1") {
+                    radio.ponerAm()
+                    println(radio)
+                } else if (respuesta2 == "2") {
+                    radio.ponerFm()
+                    println(radio)
+                } else if (respuesta2 == "3") {
+                    radio.subirvol()
+                    println(radio)
+                } else if (respuesta2 == "4") {
+                    radio.bajarvol()
+                    println(radio)
+                } else if (respuesta2 == "5") {
+
+                } else if (respuesta2 == "6") {
+
+                } else if (respuesta2 == "7") {
+                    radio.apagar()
+                    opcion2 = false
+                    println(radio)
+                } else {
+                    println("Opcion invalida")
+                }
             }
+        } else if (respuesta =="2"){
+            println("Adios")
+            opcion = false
         }
-
-
     }
 }
 class Radio(
